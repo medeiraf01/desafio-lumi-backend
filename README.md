@@ -25,7 +25,7 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-# Database Configuration
+## Database Configuration
 
 To configure the PostgreSQL connection, make sure you set the credentials in your `.env` file as shown below:
 
@@ -39,11 +39,11 @@ DB_DATABASE=your_database
 
 > ⚠️ The application will use these values to connect to your PostgreSQL database. Ensure the database is running and accessible with the credentials provided.
 
-# JWT Configuration
+## JWT Configuration
 JWT_SECRET=s3cR3t_K3y_!uJWk392kdvASD9291
 JWT_EXPIRATION=3600
 
-# Application Configuration
+## Application Configuration
 PORT=3000
 NODE_ENV=development
 
