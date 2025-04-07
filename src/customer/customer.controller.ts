@@ -41,10 +41,4 @@ export class CustomerController {
   findByNumCliente(@Param('num_cliente') num_cliente: string) {
     return this.customerService.findOne(+num_cliente);
   }
-
-  /*
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.customerService.remove(+id);
-  }*/
 }
