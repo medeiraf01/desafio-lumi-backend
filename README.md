@@ -25,6 +25,9 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Required
+- Node.js 20.x - This possible nvm command: nvm use.
+
 ## Database Configuration
 
 To configure the PostgreSQL connection, make sure you set the credentials in your `.env` file as shown below:
