@@ -6,10 +6,7 @@ import { CustomerModule } from 'src/customer/customer.module';
 import { Fatura } from 'src/faturas/entities/fatura.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Fatura]),
-    CustomerModule,
-  ],
+  imports: [TypeOrmModule.forFeature([Fatura]), CustomerModule],
   controllers: [DashboardController],
   providers: [DashboardService],
 })

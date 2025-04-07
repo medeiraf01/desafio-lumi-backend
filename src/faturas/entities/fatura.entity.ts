@@ -1,6 +1,6 @@
-import { BaseEntity } from "src/common/entities/base.entity";
-import { Column, Entity, ManyToOne, JoinColumn } from "typeorm";
-import { Customer } from "src/customer/entities/customer.entity";
+import { BaseEntity } from 'src/common/entities/base.entity';
+import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
+import { Customer } from 'src/customer/entities/customer.entity';
 
 @Entity('faturas')
 export class Fatura extends BaseEntity {
@@ -34,7 +34,6 @@ export class Fatura extends BaseEntity {
 
   @Column({ type: 'numeric', precision: 10, scale: 2 })
   contrib_ilum_pub_municipal: number;
-
 
   @Column('jsonb', { nullable: true })
   historico_consumo: any;

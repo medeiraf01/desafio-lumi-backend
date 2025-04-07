@@ -11,32 +11,30 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { CustomerModule } from './customer/customer.module';
 
-
 import { ArquivosPdfModule } from './arquivos_pdf/arquivos_pdf.module';
 
 import { FaturasModule } from './faturas/faturas.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 
-
 @Module({
   imports: [
-    CommonModule, 
-    AuthModule, 
-    UserModule, 
+    CommonModule,
+    AuthModule,
+    UserModule,
     CustomerModule,
     DashboardModule,
-    ConfigModule, 
+    ConfigModule,
     HealthModule,
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => configService.get('database') as TypeOrmModuleOptions,
+      useFactory: (configService: ConfigService) =>
+        configService.get('database') as TypeOrmModuleOptions,
     }),
     CustomerModule,
-  
+
     ArquivosPdfModule,
-  FaturasModule,
-  DashboardModule
-    ,
+    FaturasModule,
+    DashboardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

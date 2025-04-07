@@ -1,11 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateFaturaDto {
-
-  
-  
   @ApiProperty({
     description: 'ID do cliente',
     example: '123e4567-e89b-12d3-a456-426614174000',
@@ -15,22 +12,20 @@ export class CreateFaturaDto {
   cliente_id: string;
   @ApiProperty({
     description: 'Numero de instalção',
-    example: "werwe0-00rwe",
+    example: 'werwe0-00rwe',
   })
   @IsNotEmpty()
- numero_instalacao: string;
+  numero_instalacao: string;
 
   @ApiProperty({
     description: 'Mês de referência da fatura',
     example: '2024-04-01',
   })
   @IsNotEmpty()
- 
   @Type(() => String)
   mes_referencia: string;
 
   @IsNotEmpty()
-  
   @Type(() => String)
   data_vencimento: string;
 
@@ -94,15 +89,11 @@ export class CreateFaturaDto {
   @IsNumber()
   total_a_pagar: number;
 
-
   @IsNotEmpty()
   @IsNumber()
   consumo_energia_eletrica_kwh: number;
 
-
   @IsNotEmpty()
   @IsNumber()
   valor_total_sem_gd: number;
-  
-  
 }

@@ -6,16 +6,16 @@ import { HeadersValidationMiddleware } from './common/middleware/headers-validat
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  
+
   // Configuração de CORS
   app.enableCors();
-  
+
   // Aplicar middleware global
-  app.use(function(req, res, next) {
+  app.use(function (req, res, next) {
     const middleware = new HeadersValidationMiddleware();
     middleware.use(req, res, next);
   });
-  
+
   // Configuração do ValidationPipe global
   app.useGlobalPipes(
     new ValidationPipe({
@@ -24,7 +24,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  
+
   // Configuração do Swagger
   const config = new DocumentBuilder()
     .setTitle('Lumi API')
@@ -32,10 +32,10 @@ async function bootstrap() {
     .setVersion('1.0')
     .addBearerAuth()
     .build();
-  
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  
+
   // Iniciar o servidor
   await app.listen(process.env.PORT || 3000);
   console.log(`Application is running on: ${await app.getUrl()}`);

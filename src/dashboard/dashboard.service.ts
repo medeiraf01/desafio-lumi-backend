@@ -44,7 +44,7 @@ export class DashboardService {
     const ano = partes[1];
 
     // Converter mês para número se possível
-    const mesNumero = mesesMap[mes] || mes;
+    const mesNumero: = mesesMap[mes] || mes;
 
     // Retornar no formato ANO-MES para comparação adequada
     return `${ano}-${mesNumero}`;

@@ -28,7 +28,7 @@ import {
   ApiBody,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { AnyFilesInterceptor, FileFieldsInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import * as multer from 'multer';
 
@@ -54,7 +54,10 @@ export class FaturasController {
       storage: multer.memoryStorage(),
       fileFilter: (req, file, cb) => {
         if (file.mimetype !== 'application/pdf') {
-          return cb(new BadRequestException('Apenas arquivos PDF são permitidos'), false);
+          return cb(
+            new BadRequestException('Apenas arquivos PDF são permitidos'),
+            false,
+          );
         }
         cb(null, true);
       },
@@ -80,9 +83,7 @@ export class FaturasController {
       },
     },
   })
-  async uploadPdf(
-    @UploadedFiles() files: Express.Multer.File[],
-  ) {
+  async uploadPdf(@UploadedFiles() files: Express.Multer.File[]) {
     if (!files || files.length === 0) {
       throw new BadRequestException('Nenhum arquivo enviado');
     }
@@ -101,7 +102,10 @@ export class FaturasController {
 
   @Get()
   @ApiOperation({ summary: 'Listar todas as faturas com filtros opcionais' })
-  @ApiResponse({ status: 200, description: 'Lista de faturas retornada com sucesso' })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de faturas retornada com sucesso',
+  })
   @ApiResponse({ status: 401, description: 'Não autorizado' })
   findAll(@Query() filterDto: FindFaturasFilterDto) {
     return this.faturasService.findAll(filterDto);
@@ -137,22 +141,28 @@ export class FaturasController {
   @Get('download/:id')
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Fazer download do PDF de uma fatura' })
-  @ApiResponse({ status: 200, description: 'Download do PDF realizado com sucesso' })
-  @ApiResponse({ status: 404, description: 'Fatura ou arquivo PDF não encontrado' })
+  @ApiResponse({
+    status: 200,
+    description: 'Download do PDF realizado com sucesso',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Fatura ou arquivo PDF não encontrado',
+  })
   @ApiResponse({ status: 401, description: 'Não autorizado' })
   async downloadFatura(
     @Param('id') id: string,
     @Res({ passthrough: true }) res: Response,
   ): Promise<StreamableFile> {
     const { path, filename } = await this.faturasService.downloadFatura(id);
-    
+
     const file = createReadStream(path);
-    
+
     res.set({
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename="${filename}"`,
     });
-    
+
     return new StreamableFile(file);
   }
 }
